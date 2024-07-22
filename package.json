@@ -1,0 +1,37 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "snobou12",
+  "license": "MIT",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node ./dist/index.js",
+    "dev": "npx ts-node-dev index.ts"
+  },
+  "dependencies": {
+    "@supercharge/promise-pool": "^3.1.0",
+    "axios": "^1.6.2",
+    "cron": "^3.1.6",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.2",
+    "sha256": "^0.2.0",
+    "telegraf": "^4.15.3",
+    "telegraf-session-local": "^2.1.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@telegraf/types": "^6.9.1",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.3",
+    "@types/sha256": "^0.2.2",
+    "@types/uuid": "^9.0.7",
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.1",
+    "typegram": "^5.2.0",
+    "typescript": "^5.3.2"
+  }
+}
