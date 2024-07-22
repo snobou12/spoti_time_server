@@ -1,7 +1,6 @@
 /** @format */
 
-import { Request, Response } from "express";
-import { NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import UserService from "../services/user.service";
 import { ConfigService } from "../../config/config.service";
 import BotService from "../../bot/db/services/bot.service";

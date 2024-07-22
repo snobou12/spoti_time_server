@@ -1,6 +1,7 @@
 import { Router } from "express";
 import authMiddleware from "../middlewares/auth.middleware";
 import UserController from "../controllers/user.controller";
+import OtherController from "../controllers/other.controller";
 const router = Router();
 
 //admin
@@ -16,6 +17,10 @@ router.get('/refresh', UserController.refresh);
 router.get('/getUsers',authMiddleware,UserController.getUsers);
 router.get("/searchUsers",authMiddleware,UserController.searchUsers);
 router.post("/sendMessageFromBot",authMiddleware,UserController.sendMessageFromBot);
+
+
+//others
+router.get("/getMainData",authMiddleware,OtherController.getMainData);
 
 
 
