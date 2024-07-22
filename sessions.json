@@ -5,14 +5,14 @@
       "data": {
         "likes": true,
         "liked": false,
-        "last_message_id": 6126,
+        "last_message_id": 6167,
         "__scenes": {}
       }
     },
     {
       "id": "5762480244:5762480244",
       "data": {
-        "last_message_id": 6135,
+        "last_message_id": 6140,
         "__scenes": {}
       }
     },
@@ -20,10 +20,7 @@
       "id": "674301145:674301145",
       "data": {
         "last_message_id": 4749,
-        "__scenes": {
-          "current": "promocode-scene",
-          "state": {}
-        }
+        "__scenes": {}
       }
     },
     {
@@ -1525,6 +1522,13 @@
       "id": "1969844381:1969844381",
       "data": {
         "__scenes": {}
+      }
+    },
+    {
+      "id": "322714784:322714784",
+      "data": {
+        "__scenes": {},
+        "last_message_id": 6189
       }
     }
   ]
