@@ -21,7 +21,7 @@ const spotifyOpoChoiceAction = async (
 		}
 
 		const price = service.price;
-		const caption = `Тариф: <b>${service.tariff} (на 2 аккаунта)</b>\nЦена: <b>${price}р</b>\n\nПосле оплаты c <b>Вами</b> сразу свяжется техподдержка - @SpotiTime_ru_support.`;
+		const caption = `Тариф: <b>${service.tariff}</b>\nЦена: <b>${price}р</b>\n\nПосле оплаты c <b>Вами</b> сразу свяжется техподдержка - @SpotiTime_ru_support.`;
 
 		await ctx.telegram.editMessageMedia(
 			ctx.chat?.id,

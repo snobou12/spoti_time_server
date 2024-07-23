@@ -13,6 +13,8 @@ import { resolve } from "path";
 import userService from "../db/services/user.service";
 import { IUser } from "../db/models/user.model";
 import InvoiceModel from "../db/models/invoice.model";
+import PromocodeService from "../db/services/promocode.service";
+
 const source = resolve("./bot/assets/greeting.jpg");
 
 export class CheckOrderJob extends Job {
@@ -21,7 +23,7 @@ export class CheckOrderJob extends Job {
 		super(bot);
 		this.allOrdersId = [];
 	}
-
+	// TODO: исправить баг с 2мя заказами, которые попадают после оплаты в invoices(может дело в статусе hold)
 	checkExpired(orderId: Types.ObjectId) {
 		return new Promise(async (resolve, reject) => {
 			try {
@@ -96,6 +98,7 @@ export class CheckOrderJob extends Job {
 							);
 
 							await OrderModel.deleteOne({ order_id: order.order_id });
+							await PromocodeService.deletePromocodeAfterPay(user.id);
 							resolve(1);
 						}
 						reject("Что-то пошло не так");

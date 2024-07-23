@@ -1,14 +1,15 @@
 /** @format */
 
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
 export interface IService {
+	_id: Types.ObjectId;
 	title: string; // spotify
 	tariff: string; // Spotify Premium 1 месяц
 	months: number; // 1
 	price: number; // 349
 	discountAllowed: boolean; // false | true
-	query: string;
+	query: string; // data_$$$
 }
 const serviceSchema = new Schema<IService>(
 	{

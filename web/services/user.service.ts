@@ -72,7 +72,7 @@ class UserService {
 		const allUsers = await UserModel.find();
 		const maxPage = Math.ceil(allUsers.length / 10);
 		const users = await UserModel.find({}).skip(skip).limit(PAGE_SIZE);
-		return { users: users.reverse(), maxPage };
+		return { users: users, maxPage };
 	}
 
 	async searchUsers(query: string) {

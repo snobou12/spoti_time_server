@@ -1,8 +1,9 @@
 /** @format */
 
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
 export interface IPromocode {
+	_id: Types.ObjectId;
 	title: string;
 	disabled: boolean;
 	discount: number;

@@ -2,7 +2,6 @@
 
 import UserModel from "../../bot/db/models/user.model";
 import InvoiceModel, { IInvoice } from "../../bot/db/models/invoice.model";
-// TODO:
 
 const uniqueByKey = (array: IInvoice[], key: string) => {
 	const map = new Map();

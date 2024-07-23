@@ -1,0 +1,17 @@
+/** @format */
+
+import InvoiceModel, { IInvoice } from "../../bot/db/models/invoice.model";
+
+class InvoicesService {
+	async getInvoices(page: number = 1) {
+		const PAGE_SIZE = 10;
+		const skip = (page - 1) * PAGE_SIZE;
+		const allInvoices = await InvoiceModel.find();
+		const maxPage = Math.ceil(allInvoices.length / 10);
+		const invoices = await InvoiceModel.find({}).skip(skip).limit(PAGE_SIZE);
+
+		return { invoices: invoices.reverse(), maxPage };
+	}
+}
+
+export default new InvoicesService();
