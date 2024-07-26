@@ -37,5 +37,18 @@ class PromocodesService {
 		});
 		return newPromo;
 	}
+	async switchFeaturePromocode(promocodeId: string, feature: string) {
+		const promocode = await PromocodeModel.findById(promocodeId);
+		if (!promocode) {
+			throw ApiError.BadRequest("Промокод не найден");
+		}
+		if (feature === "oneTimeUsage") {
+			promocode.oneTimeUsage = !promocode.oneTimeUsage;
+		} else if (feature === "disabled") {
+			promocode.disabled = !promocode.disabled;
+		}
+		await promocode.save();
+		return promocode;
+	}
 }
 export default new PromocodesService();

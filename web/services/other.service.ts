@@ -20,16 +20,14 @@ class OtherService {
 		todayStart.setHours(0, 0, 0, 0);
 		const todayEnd = new Date();
 		todayEnd.setHours(23, 59, 59, 999);
-		const queryUsersLengthToday = {
+		const queryLengthToday = {
 			createdAt: {
 				$gte: todayStart,
 				$lte: todayEnd,
 			},
 		};
 		// количество подписчиков за день
-		const todayUsersLength = await UserModel.countDocuments(
-			queryUsersLengthToday
-		);
+		const todayUsersLength = await UserModel.countDocuments(queryLengthToday);
 
 		const allInvoices = await InvoiceModel.find();
 		const uniqueAllInvoices = uniqueByKey(allInvoices, "order_id");
@@ -61,9 +59,19 @@ class OtherService {
 			invoicesTodayAggregate.length > 0
 				? invoicesTodayAggregate[0].totalRevenue
 				: 0;
+
+		// Количество заказов за день
+		const todayInvoicesLength = await InvoiceModel.countDocuments(
+			queryLengthToday
+		);
+		// Количество заказов всего
+		const allInvoicesLength = await InvoiceModel.countDocuments();
+
 		const data = {
 			allUsersLength,
 			todayUsersLength,
+			todayInvoicesLength,
+			allInvoicesLength,
 			allMoney,
 			todayMoney,
 		};

@@ -7,7 +7,7 @@ export interface IInvoice {
 	service_title: string;
 	service_tariff: string;
 	service_price: number;
-	service_months: number;
+	service_months: 3 | 6 | 12;
 	service_query: string;
 	used_promocode: string;
 	order_id: string;

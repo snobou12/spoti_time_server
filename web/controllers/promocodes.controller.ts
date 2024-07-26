@@ -45,6 +45,23 @@ class PromocodesController {
 			next(e);
 		}
 	}
+
+	async switchFeaturePromocode(
+		req: Request<{}, {}>,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const { promocodeId, feature } = req.body;
+			const response = await PromocodesService.switchFeaturePromocode(
+				promocodeId,
+				feature
+			);
+			return res.json(response);
+		} catch (e) {
+			next(e);
+		}
+	}
 }
 
 export default new PromocodesController();

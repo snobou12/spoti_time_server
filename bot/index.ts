@@ -14,7 +14,8 @@ import { Action } from "./actions/action.class";
 import promoScene from "./scenes/promocode.scene";
 import { Actions } from "./actions/actions";
 import { Job } from "./crons/job.class";
-import { CheckOrderJob } from "./crons/check.orders.job";
+import { CheckOrderJob } from "./crons/check.order.job";
+import { CheckEndedJob } from "./crons/check.ended.job";
 
 class Bot {
 	bot: Telegraf<IBotContext>;
@@ -48,7 +49,7 @@ class Bot {
 		this.commands = [new StartCommand(this.bot)];
 		this.ons = [new OnMessages(this.bot)];
 		this.actions = [new Actions(this.bot, this.configService)];
-		this.jobs = [new CheckOrderJob(this.bot)];
+		this.jobs = [new CheckOrderJob(this.bot), new CheckEndedJob(this.bot)];
 
 		// add commands
 		for (const command of this.commands) {

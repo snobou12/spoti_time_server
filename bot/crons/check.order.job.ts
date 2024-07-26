@@ -10,7 +10,7 @@ import { Types } from "mongoose";
 import AAIOService from "../aaio/aaio.service";
 import { supportNickname, support_chat_id } from "../const/const";
 import { resolve } from "path";
-import userService from "../db/services/user.service";
+import UserService from "../db/services/user.service";
 import { IUser } from "../db/models/user.model";
 import InvoiceModel from "../db/models/invoice.model";
 import PromocodeService from "../db/services/promocode.service";
@@ -23,7 +23,7 @@ export class CheckOrderJob extends Job {
 		super(bot);
 		this.allOrdersId = [];
 	}
-	// TODO: исправить баг с 2мя заказами, которые попадают после оплаты в invoices(может дело в статусе hold)
+	// TODO: исправить баг с 2мя заказами, которые попадают после оплаты в invoices
 	checkExpired(orderId: Types.ObjectId) {
 		return new Promise(async (resolve, reject) => {
 			try {
@@ -51,9 +51,9 @@ export class CheckOrderJob extends Job {
 						await order.save();
 
 						const user: IUser | string | undefined =
-							await userService.getUserById(order.customerId);
+							await UserService.getUserById(order.customerId);
 						if (!(typeof user === "string") && user) {
-							await InvoiceModel.create({
+							const invoice = await InvoiceModel.create({
 								customerId: user.id,
 								service_title: order.service_title,
 								service_tariff: order.service_tariff,
@@ -72,7 +72,7 @@ export class CheckOrderJob extends Job {
 								}
 							);
 							const username =
-								user.username === ""
+								user.username === " "
 									? `<a href="tg://user?id=${user.id}">${user.first_name} ${
 											user.last_name ? user.last_name : ""
 									  }</a>`
@@ -99,6 +99,10 @@ export class CheckOrderJob extends Job {
 
 							await OrderModel.deleteOne({ order_id: order.order_id });
 							await PromocodeService.deletePromocodeAfterPay(user.id);
+							await UserService.addCategoryAfterPay(
+								user.id,
+								invoice.service_months
+							);
 							resolve(1);
 						}
 						reject("Что-то пошло не так");

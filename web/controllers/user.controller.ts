@@ -82,10 +82,47 @@ class UserController {
 		}
 	}
 
-	async sendMessageFromBot(req: any, res: Response, next: NextFunction) {
+	async sendMessageFromBot(
+		req: Request<{}, {}>,
+		res: Response,
+		next: NextFunction
+	) {
 		try {
 			const { id, message } = req.body;
 			const response = await BotService.sendMessageFromBot(id, message);
+			return res.json(response);
+		} catch (e) {
+			next(e);
+		}
+	}
+	// TODO: нужно ли?
+	async getUserCategoryByUserId(
+		req: Request<{}, {}>,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const { id } = req.body;
+			const response = await UserService.getUserCategoryByUserId(id);
+			return res.json(response);
+		} catch (e) {
+			next(e);
+		}
+	}
+
+	async updateUserCategory(
+		req: Request<{}, {}>,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const { userId, months, startDate, endDate } = req.body;
+			const response = await UserService.updateUserCategory(
+				userId,
+				months,
+				startDate,
+				endDate
+			);
 			return res.json(response);
 		} catch (e) {
 			next(e);

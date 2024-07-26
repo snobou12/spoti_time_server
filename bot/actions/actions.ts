@@ -37,7 +37,6 @@ export class Actions extends Action {
 			const callback = (ctx.callbackQuery as CallBackType).data;
 			const message_id = ctx.session.last_message_id;
 			if (callback.startsWith("data_order_mess")) {
-				console.log(callback + "   lol kek");
 				const callbackArr = callback.split("_");
 				const userId = callbackArr[callbackArr.length - 1];
 

@@ -103,6 +103,42 @@ class UserService {
 		foundUsers = foundUsers.filter(user => user !== null && user !== undefined);
 		return foundUsers;
 	}
+
+	async getUserCategoryByUserId(id: number) {
+		const user = await UserModel.findOne({ id });
+		if (!user) {
+			throw ApiError.BadRequest("Пользователь не найден");
+		}
+		if (!user.category) return null;
+		else {
+			return user.category;
+		}
+	}
+
+	async updateUserCategory(
+		userId: string,
+		months: 0 | 3 | 6 | 12,
+		startDate: string,
+		endDate: string
+	) {
+		const user = await UserModel.findById(userId);
+		if (!user) {
+			throw ApiError.BadRequest("Пользователь не найден");
+		}
+
+		if (!months || !startDate || !endDate) {
+			user.category = undefined;
+			await user.save();
+			return null;
+		}
+		user.category = {
+			startDate,
+			endDate,
+			categoryType: months,
+		};
+		await user.save();
+		return "Категория пользователя обновлена";
+	}
 }
 
 export default new UserService();
