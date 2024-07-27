@@ -21,10 +21,11 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.2",
+    "multer": "^1.4.5-lts.1",
     "sha256": "^0.2.0",
     "telegraf": "^4.15.3",
     "telegraf-session-local": "^2.1.1",
-    "uuid": "^9.0.1"
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@telegraf/types": "^6.9.1",
@@ -34,8 +35,10 @@
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
+    "@types/multer": "^1.4.11",
     "@types/node": "^20.10.3",
     "@types/sha256": "^0.2.2",
+    "@types/sharp": "^0.32.0",
     "@types/uuid": "^9.0.7",
     "nodemon": "^3.0.2",
     "ts-node": "^10.9.1",

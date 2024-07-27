@@ -11,7 +11,7 @@ class OtherController {
 			next(e);
 		}
 	}
-	// TODO:
+	
 	async getBannedUsers(req: Request<{}, {}>, res: Response, next: NextFunction){
 		try {
             const data = await BotService.getBannedUsers();

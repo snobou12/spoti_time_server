@@ -5,6 +5,7 @@ import { resolve } from "path";
 
 import bot from "../../index";
 import UserModel from "../models/user.model";
+import FeaturesModel from "../../../web/models/features.model";
 const source = resolve("./bot/assets/greeting.jpg");
 
 class BotService {
@@ -16,7 +17,7 @@ class BotService {
 			console.log(e);
 		}
 	}
-
+	// TODO:
 	async getBannedUsers() {
 		const users = await UserModel.find();
 		const ids: number[] = [];
@@ -53,7 +54,7 @@ class BotService {
 			for (const userId of users) {
 				try {
 					const user = await UserModel.findOne({ id: userId });
-					//TODO:
+
 					await bot.bot.telegram.sendPhoto(
 						userId,
 						{ source },
@@ -95,9 +96,22 @@ class BotService {
 
 	async sendTestPost(message: string) {
 		try {
+			const features = await FeaturesModel.findOne();
+			if (!features) {
+				console.error("Что-то пошло не так");
+			}
+
+			let src = source;
+			const postPreviewImageSrc = features?.postPreviewImageSrc;
+
+			if (postPreviewImageSrc) {
+				const splittedSrc = features?.postPreviewImageSrc.split("/");
+				src = resolve(`./uploads/${splittedSrc[splittedSrc.length - 1]}`);
+			}
+
 			await bot.bot.telegram.sendPhoto(
 				support_chat_id,
-				{ source },
+				{ source: src },
 				{
 					caption: message,
 					parse_mode: "HTML",
@@ -115,11 +129,23 @@ class BotService {
 		const delay = 15 * 1000; // 15 секунд задержка
 
 		const sendMessageBatch = async (users: string[]) => {
+			const features = await FeaturesModel.findOne();
+			if (!features) {
+				console.error("Что-то пошло не так");
+			}
+
+			let src = source;
+			const postPreviewImageSrc = features?.postPreviewImageSrc;
+
+			if (postPreviewImageSrc) {
+				const splittedSrc = features?.postPreviewImageSrc.split("/");
+				src = resolve(`./uploads/${splittedSrc[splittedSrc.length - 1]}`);
+			}
 			for (const userId of users) {
 				try {
 					await bot.bot.telegram.sendPhoto(
 						userId,
-						{ source },
+						{ source: src },
 						{
 							caption: text,
 							parse_mode: "HTML",

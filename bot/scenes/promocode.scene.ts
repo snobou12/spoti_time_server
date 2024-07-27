@@ -45,7 +45,7 @@ scene.on("message", async ctx => {
 	//либо текст с ошибкой, либо сам промокод(success)
 	const res: IPromocode | string | undefined =
 		await PromocodeService.sendPromocode(userId, message);
-	if (typeof res !== "string" && res && message === res.title) {
+	if (typeof res !== "string" && res && message.toLowerCase() === res.title.toLowerCase()) {
 		await ctx.reply(`Промокод ${res.title} на ${res.discount}% активирован`);
 		await ctx.scene.leave();
 		await ctx.deleteMessage(messageId);
