@@ -127,16 +127,15 @@ class BotService {
 		// по 10 человек каждые 15 секунд
 		const batchSize = 10; //  Количество пользоветелй в каждом батче (размер группы)
 		const delay = 15 * 1000; // 15 секунд задержка
+		const features = await FeaturesModel.findOne();
+		if (!features) {
+			console.error("Что-то пошло не так");
+		}
+
+		let src = source;
+		const postPreviewImageSrc = features?.postPreviewImageSrc;
 
 		const sendMessageBatch = async (users: string[]) => {
-			const features = await FeaturesModel.findOne();
-			if (!features) {
-				console.error("Что-то пошло не так");
-			}
-
-			let src = source;
-			const postPreviewImageSrc = features?.postPreviewImageSrc;
-
 			if (postPreviewImageSrc) {
 				const splittedSrc = features?.postPreviewImageSrc.split("/");
 				src = resolve(`./uploads/${splittedSrc[splittedSrc.length - 1]}`);
@@ -174,6 +173,11 @@ class BotService {
 						`Ожидание ${
 							delay / 1000
 						} секунд перед отправкой следующей партии сообщений...`
+					);
+					console.log(
+						`Осталось ${
+							((batch.length / batchSize) * (delay / 1000)) / 60
+						} минут`
 					);
 					await new Promise(resolve => setTimeout(resolve, delay));
 				}

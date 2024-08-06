@@ -1,6 +1,6 @@
 /** @format */
 
-import { Schema, SchemaType, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 export interface UserCategory {
 	startDate: string;

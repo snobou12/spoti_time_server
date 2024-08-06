@@ -13,7 +13,6 @@ class PromocodeService {
 			const promocode = await PromocodeModel.findOne({
 				title: { $regex: new RegExp(title, "i") },
 			});
-			console.log(promocode);
 			if (!promocode || promocode.disabled) {
 				return `Промокод - ${title} не найден`;
 			}

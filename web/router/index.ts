@@ -81,7 +81,7 @@ router.post(
 	PostingController.uploadPostImage
 );
 
-// router.post("/sendPost",authMiddleware,PostingController.sendPost);
+router.post("/sendPost", authMiddleware, PostingController.sendPost);
 
 //features
 
